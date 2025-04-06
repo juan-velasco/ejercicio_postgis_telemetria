@@ -1,0 +1,4 @@
+databases==0.9.0
+asyncpg==0.30.0
+shapely==2.1.0
+geojson==3.2.0

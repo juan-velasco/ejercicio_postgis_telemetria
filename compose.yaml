@@ -1,0 +1,42 @@
+services:
+  postgis:
+    image: timescale/timescaledb-ha:pg17-ts2.19
+    environment:
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_USER: postgres
+      POSTGRES_DB: db
+    ports:
+      - "5435:5432"
+    volumes:
+      - postgis_data:/var/lib/postgresql/data
+    restart: always   
+  
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    volumes:
+      - "./pgadmin/pgadmin_servers.json:/pgadmin4/servers.json"
+      - "./pgadmin/pgadmin_pass:/pgadmin4/pass"
+    ports:
+      - "5051:80"
+
+  scripts:
+    build:
+      context: ./scripts
+      dockerfile: Dockerfile
+    environment:
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_USER: postgres
+      POSTGRES_DB: db
+      POSTGRES_HOST: postgis
+    volumes:
+      - ./scripts:/app
+    depends_on:
+      - postgis
+    entrypoint: ["sh", "-c", "sleep infinity"]
+   
+volumes:
+  postgis_data:
