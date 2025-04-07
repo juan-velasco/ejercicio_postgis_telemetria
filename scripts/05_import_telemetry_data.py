@@ -3,6 +3,7 @@ import json
 import asyncio
 import asyncpg
 from shapely.geometry import shape
+from datetime import datetime
 
 # Configuración de la base de datos
 db_user = os.getenv("POSTGRES_USER", "postgres")
@@ -33,13 +34,18 @@ async def load_telemetry():
             properties = feature["properties"]
             geometry = shape(feature["geometry"])  # Convertir a objeto Shapely
             wkt_geometry = geometry.wkt  # Convertir a WKT (Well-Known Text)
+            timestamp_str = properties.get("timestamp")  # Obtener el campo de tiempo como cadena
+
+            # Convertir el timestamp a datetime
+            timestamp = datetime.fromisoformat(timestamp_str.replace("Z", "+00:00"))
 
             # Insertar en la tabla
             await conn.execute(
                 """
-                INSERT INTO telemetry (engine_rpm, engine_temperature, geom)
-                VALUES ($1, $2, ST_GeomFromText($3, 4326))
+                INSERT INTO telemetry (timestamp, engine_rpm, engine_temperature, geom)
+                VALUES ($1, $2, $3, ST_GeomFromText($4, 4326))
                 """,
+                timestamp,
                 properties.get("engine_rpm"),
                 properties.get("engine_temperature"),
                 wkt_geometry

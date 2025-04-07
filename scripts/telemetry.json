@@ -5,7 +5,8 @@
         "type": "Feature",
         "properties": {
           "engine_rpm": 9456,
-          "engine_temperature": 45      
+          "engine_temperature": 45,
+          "timestamp": "2025-04-07T10:00:00Z"
         },
         "geometry": {
           "coordinates": [
@@ -19,7 +20,8 @@
         "type": "Feature",
         "properties": {
           "engine_rpm": 3876,
-          "engine_temperature": 42      
+          "engine_temperature": 42,
+          "timestamp": "2025-04-07T10:05:00Z"
         },
         "geometry": {
           "coordinates": [
@@ -33,7 +35,8 @@
         "type": "Feature",
         "properties": {
           "engine_rpm": 7876,
-          "engine_temperature": 44      
+          "engine_temperature": 44,
+          "timestamp": "2025-04-07T10:10:00Z"
         },
         "geometry": {
           "coordinates": [
@@ -47,7 +50,8 @@
         "type": "Feature",
         "properties": {
           "engine_rpm": 10988,
-          "engine_temperature": 48      
+          "engine_temperature": 48,
+          "timestamp": "2025-04-07T10:15:00Z"
         },
         "geometry": {
           "coordinates": [
@@ -61,7 +65,8 @@
         "type": "Feature",
         "properties": {
           "engine_rpm": 12367,
-          "engine_temperature": 55
+          "engine_temperature": 55,
+          "timestamp": "2025-04-07T10:20:00Z"
         },
         "geometry": {
           "coordinates": [
@@ -75,7 +80,8 @@
         "type": "Feature",
         "properties": {
           "engine_rpm": 6632,
-          "engine_temperature": 41      
+          "engine_temperature": 41,
+          "timestamp": "2025-04-07T10:25:00Z"
         },
         "geometry": {
           "coordinates": [

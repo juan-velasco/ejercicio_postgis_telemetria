@@ -25,14 +25,24 @@ async def create_table():
         # Crear la tabla telemetry
         create_table_query = """
         CREATE TABLE IF NOT EXISTS telemetry (
-            id SERIAL PRIMARY KEY,
+            id SERIAL,
+            timestamp TIMESTAMPTZ NOT NULL,
             engine_rpm INT NOT NULL,
             engine_temperature INT NOT NULL,
-            geom GEOMETRY(POINT, 4326) -- Almacena geometrías en formato EPSG:4326
+            geom GEOMETRY(POINT, 4326), -- Almacena geometrías en formato EPSG:4326
+            PRIMARY KEY (id, timestamp)
         );
         """
         await conn.execute(create_table_query)
         print("Tabla 'telemetry' creada exitosamente.")
+
+        # Convertir en hipertabla de TimescaleDB
+        hypertable_query = """
+        SELECT create_hypertable('telemetry', 'timestamp', if_not_exists => TRUE);
+        """
+        await conn.execute(hypertable_query)
+        print("Tabla 'telemetry' convertida en hipertabla de TimescaleDB exitosamente.")
+
     except Exception as e:
         print(f"Error al crear la tabla: {e}")
     finally:
